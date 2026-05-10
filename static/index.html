@@ -2,21 +2,39 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>synth-to-nn (stub)</title>
-  <style>
-    body { font: 14px/1.5 system-ui, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; }
-    input { width: 100%; padding: 8px; font: inherit; box-sizing: border-box; }
-    button { margin-top: 8px; padding: 8px 16px; font: inherit; cursor: pointer; }
-    pre { background: #f4f4f4; padding: 12px; overflow: auto; border-radius: 4px; }
-    h1 { font-size: 1.4rem; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>synth-to-nn — 내 모듈러는 어떤 신경망?</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <h1>synth-to-nn (skeleton)</h1>
-  <p>Paste a ModularGrid rack URL:</p>
-  <input id="url" placeholder="https://modulargrid.net/e/racks/view/816665">
-  <button id="go">Classify</button>
-  <pre id="out"></pre>
+  <main class="container">
+    <header>
+      <h1>synth-to-nn</h1>
+      <p class="tagline">당신의 모듈러 신스는 어떤 신경망 유형일까요?</p>
+    </header>
+
+    <section class="classify-form">
+      <input id="url" type="url" placeholder="https://modulargrid.net/e/racks/view/...">
+      <button id="go" type="button">분류하기</button>
+      <div id="status" class="status"></div>
+    </section>
+
+    <section id="result" hidden>
+      <div id="result-banner" class="result-banner"></div>
+      <div id="featured-card"></div>
+      <h2>다른 유형들과의 호환도</h2>
+      <ul id="scores" class="scores"></ul>
+    </section>
+
+    <section id="all-types">
+      <h2>전체 8개 유형</h2>
+      <div id="cards-grid" class="cards-grid"></div>
+    </section>
+
+    <footer>
+      <p>모듈러그리드 데이터 기반 · 매칭 가중치 캘리브레이션 진행 중</p>
+    </footer>
+  </main>
   <script src="/static/app.js"></script>
 </body>
 </html>

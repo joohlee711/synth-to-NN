@@ -1,0 +1,134 @@
+:root {
+  --bg: #fafaf7;
+  --fg: #1a1a1a;
+  --muted: #6b6b6b;
+  --line: #e3e3dd;
+  --accent: #1a1a1a;
+  --card: #ffffff;
+  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Noto Sans KR", sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  margin: 0;
+  padding: 0;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 48px 20px 80px; }
+
+h1 { font-size: 1.8rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+h2 { font-size: 1.2rem; margin: 48px 0 16px; letter-spacing: -0.005em; }
+.tagline { color: var(--muted); margin: 0 0 32px; }
+
+.classify-form {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 32px;
+}
+.classify-form input {
+  width: 100%; padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px; font: inherit; background: #fff;
+}
+.classify-form input:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+.classify-form button {
+  margin-top: 12px; padding: 12px 24px;
+  background: var(--accent); color: #fff;
+  border: 0; border-radius: 8px; font: inherit; font-weight: 500;
+  cursor: pointer;
+}
+.classify-form button:hover { opacity: 0.9; }
+.classify-form button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.status { color: var(--muted); font-size: 0.9rem; margin-top: 12px; min-height: 1.4em; }
+
+.result-banner {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.result-banner strong { color: var(--fg); }
+
+.cards-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.card.featured {
+  grid-column: 1 / -1;
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.card-image {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #f0efea 0%, #e8e6df 100%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+.card-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-image-placeholder {
+  font-size: 3rem; font-weight: 200;
+  color: rgba(0,0,0,0.3); letter-spacing: 0.05em;
+}
+.card.featured .card-image { aspect-ratio: 21/9; }
+.card.featured .card-image-placeholder { font-size: 4rem; }
+
+.card-body { padding: 20px 22px 22px; flex: 1; }
+.card-num {
+  font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em;
+  text-transform: uppercase; font-weight: 500;
+}
+.card-title-en { font-size: 1.15rem; font-weight: 600; margin: 6px 0 2px; }
+.card-title-ko { font-size: 0.95rem; color: var(--muted); margin-bottom: 12px; }
+.card-catch {
+  font-style: italic; color: var(--fg); border-left: 2px solid var(--accent);
+  padding-left: 12px; margin: 12px 0;
+}
+.card-character, .card-sound { font-size: 0.92rem; margin: 10px 0; color: #2a2a2a; }
+.card-sound { color: var(--muted); }
+
+.card-meta { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 0.85rem; }
+.card-meta-row { display: flex; gap: 8px; margin-bottom: 6px; }
+.card-meta-label { color: var(--muted); min-width: 92px; flex-shrink: 0; }
+.card-meta-value { color: var(--fg); }
+.card-meta-note { color: var(--muted); }
+
+.card-share {
+  margin-top: 14px; padding: 12px 14px;
+  background: #f5f4ee; border-radius: 8px;
+  font-size: 0.88rem; font-style: italic;
+}
+
+.scores { font-size: 0.9rem; color: var(--muted); margin-top: 16px; }
+.scores li { margin: 4px 0; }
+.scores .score-bar {
+  display: inline-block; height: 4px; background: var(--accent);
+  border-radius: 2px; margin-left: 8px; vertical-align: middle;
+}
+
+footer { margin-top: 64px; color: var(--muted); font-size: 0.85rem; text-align: center; }
