@@ -1,4 +1,5 @@
 import json
+import os
 import time
 from typing import Callable
 
@@ -6,7 +7,10 @@ import httpx
 
 from . import db, parser
 
-UA = "synth-to-nn/0.1 (research project; contact: TODO@example.com)"
+UA = os.environ.get(
+    "USER_AGENT",
+    "synth-to-nn/0.1 (+https://github.com/joohlee711/synth-to-nn)",
+)
 _HEADERS = {"User-Agent": UA, "Accept": "text/html,application/xhtml+xml"}
 _MIN_INTERVAL_S = 2.0
 _last_request_at: float = 0.0
