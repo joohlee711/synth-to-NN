@@ -58,3 +58,22 @@ def test_maths_only_rack():
     assert top["score"] > 0
     second = result["scores"][1]
     assert second["score"] < top["score"]
+
+
+def test_cnn_signatures_survive_mlp_heavy_rack():
+    rack = (
+        ["Filter"] * 6
+        + ["LFO"] * 6
+        + ["Mixer"] * 6
+        + ["VCA"] * 4
+        + ["Oscillator"] * 5
+        + ["Envelope Generator"] * 5
+        + ["Sequencer"] * 1
+        + ["Clock Modulator"] * 1
+        + ["Clock Generator"] * 2
+        + ["Drum"] * 2
+        + ["Quantizer"] * 1
+    )
+    ranking = [s["archetype"] for s in matcher.score_rack(rack)["scores"]]
+    assert ranking[0] == "MLP"
+    assert ranking.index("CNN") <= 4
