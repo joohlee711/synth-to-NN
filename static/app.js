@@ -121,8 +121,18 @@ function renderResult(data) {
 
   renderDiagnostic(data);
 
+  document.getElementById("all-types").hidden = true;
+  document.getElementById("explore-cta").hidden = false;
+
   section.scrollIntoView({ behavior: "smooth", block: "start" });
 }
+
+document.getElementById("explore-btn").addEventListener("click", () => {
+  const all = document.getElementById("all-types");
+  all.hidden = false;
+  document.getElementById("explore-cta").hidden = true;
+  all.scrollIntoView({ behavior: "smooth", block: "start" });
+});
 
 function renderDiagnostic(data) {
   const counts = data.function_counts || {};
