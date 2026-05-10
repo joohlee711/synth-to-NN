@@ -25,12 +25,12 @@ def classify(req: ClassifyRequest):
 
     rack = fetcher.get_rack(rack_id, fmt=fmt)
 
-    function_ids: list[int] = []
+    function_names: list[str] = []
     for mod in rack["modules"]:
         m = fetcher.get_module(mod["id"], mod["slug"])
-        function_ids.extend(m["function_ids"])
+        function_names.extend(m["function_names"].values())
 
-    scores = matcher.score_rack(function_ids)
+    result = matcher.score_rack(function_names)
     return {
         "rack": {
             "id": rack["rack_id"],
@@ -38,8 +38,10 @@ def classify(req: ClassifyRequest):
             "user": rack.get("user"),
         },
         "module_count": len(rack["modules"]),
-        "function_count": len(function_ids),
-        "scores": [{"archetype": a, "score": s} for a, s in scores],
+        "function_count": len(function_names),
+        "scores": result["scores"],
+        "matched_functions": result["matched_functions"],
+        "unmatched_functions": result["unmatched_functions"],
     }
 
 

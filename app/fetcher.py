@@ -53,10 +53,21 @@ def get_module(module_id: int, slug: str, *, fetch: Fetcher = polite_get) -> dic
         ).fetchone()
         if row:
             fns = conn.execute(
-                "SELECT function_id FROM module_functions WHERE module_id = ?",
+                """
+                SELECT mf.function_id, ft.name
+                FROM module_functions mf
+                LEFT JOIN function_taxonomy ft USING (function_id)
+                WHERE mf.module_id = ?
+                """,
                 (module_id,),
             ).fetchall()
-            return {"id": module_id, "function_ids": [r["function_id"] for r in fns]}
+            return {
+                "id": module_id,
+                "function_ids": [r["function_id"] for r in fns],
+                "function_names": {
+                    r["function_id"]: r["name"] for r in fns if r["name"]
+                },
+            }
 
     html = fetch(f"https://modulargrid.net/e/{slug}")
     parsed = parser.parse_module_html(html)

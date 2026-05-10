@@ -1,27 +1,25 @@
-ARCHETYPES: list[str] = [
-    "MLP",
-    "CNN",
-    "RNN_LSTM",
-    "Transformer",
-    "GAN",
-    "VAE",
-    "Diffusion",
-    "MoE",
-]
+import json
+from pathlib import Path
 
-# function_id -> { archetype_name: weight }
-# Calibrate with musician friends. Empty = matcher returns 0 for everything.
-WEIGHTS: dict[int, dict[str, float]] = {
-    # 3:  "LFO"                 e.g. {"RNN_LSTM": 1.0, "Transformer": 0.3}
-    # 4:  "Envelope Generator"
-    # 15: "CV Modulation"
-    # 28: "Envelope Follower"
-    # 29: "Attenuator"
-    # 30: "Slew Limiter"
-    # 37: "Logic"
-    # 39: "Function Generator"
-}
+WEIGHTS_PATH = Path(__file__).resolve().parent / "weights.json"
 
 
-def archetype_vector(name: str) -> dict[int, float]:
-    return {fid: w.get(name, 0.0) for fid, w in WEIGHTS.items()}
+def _load() -> dict:
+    with open(WEIGHTS_PATH) as f:
+        return json.load(f)
+
+
+_data = _load()
+ARCHETYPES: list[str] = list(_data["archetypes"])
+WEIGHTS: dict[str, dict[str, float]] = dict(_data["weights"])
+
+
+def archetype_vector(name: str) -> dict[str, float]:
+    return dict(WEIGHTS.get(name, {}))
+
+
+def reload() -> None:
+    global _data, ARCHETYPES, WEIGHTS
+    _data = _load()
+    ARCHETYPES = list(_data["archetypes"])
+    WEIGHTS = dict(_data["weights"])

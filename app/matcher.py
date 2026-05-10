@@ -4,14 +4,34 @@ from collections import Counter
 from . import archetypes
 
 
-def score_rack(function_ids: list[int]) -> list[tuple[str, float]]:
-    rack_vec = Counter(function_ids)
-    results = [
-        (a, _cosine(rack_vec, archetypes.archetype_vector(a)))
-        for a in archetypes.ARCHETYPES
-    ]
-    results.sort(key=lambda x: x[1], reverse=True)
-    return results
+def _norm(s: str) -> str:
+    return s.strip().casefold()
+
+
+def score_rack(function_names: list[str]) -> dict:
+    rack_norm_to_orig: dict[str, str] = {}
+    for n in function_names:
+        rack_norm_to_orig.setdefault(_norm(n), n)
+    rack_vec = Counter(_norm(n) for n in function_names)
+
+    scores: list[dict] = []
+    matched_norm: set[str] = set()
+    for arche in archetypes.ARCHETYPES:
+        a_orig = archetypes.archetype_vector(arche)
+        a_vec = {_norm(k): v for k, v in a_orig.items()}
+        scores.append({"archetype": arche, "score": _cosine(rack_vec, a_vec)})
+        matched_norm |= set(rack_vec) & set(a_vec)
+
+    scores.sort(key=lambda x: x["score"], reverse=True)
+    matched = sorted({rack_norm_to_orig[n] for n in matched_norm})
+    unmatched = sorted(
+        {rack_norm_to_orig[n] for n in rack_vec if n not in matched_norm}
+    )
+    return {
+        "scores": scores,
+        "matched_functions": matched,
+        "unmatched_functions": unmatched,
+    }
 
 
 def _cosine(a, b) -> float:

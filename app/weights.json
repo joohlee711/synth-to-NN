@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "note": "Provisional MVP weights, hand-picked. Keys are ModularGrid function-tag wording (case- and whitespace-insensitive at match time). A future fitting script can rewrite this file in-place using the same shape.",
+  "archetypes": ["MLP", "CNN", "RNN_LSTM", "Transformer", "GAN", "VAE", "Diffusion", "MoE"],
+  "weights": {
+    "MLP": {
+      "VCO": 1.0,
+      "Oscillator": 1.0,
+      "VCF": 1.0,
+      "Filter": 1.0,
+      "VCA": 1.0,
+      "Envelope Generator": 0.8,
+      "Mixer": 0.5,
+      "LFO": 0.4
+    },
+    "CNN": {
+      "Sequencer": 1.0,
+      "Trigger Sequencer": 0.8,
+      "Clock Modulator": 0.7,
+      "Clock Generator": 0.7,
+      "Drum": 0.6,
+      "Quantizer": 0.4,
+      "Sample & Hold": 0.4
+    },
+    "RNN_LSTM": {
+      "Delay": 1.0,
+      "Reverb": 0.8,
+      "Function Generator": 0.8,
+      "Sample & Hold": 0.7,
+      "Slew Limiter": 0.6,
+      "Envelope Follower": 0.5
+    },
+    "Transformer": {
+      "CV Modulation": 1.0,
+      "Mixer": 0.7,
+      "Attenuator": 0.7,
+      "Switch": 0.7,
+      "Logic": 0.6,
+      "MIDI": 0.4,
+      "Multiple": 0.4
+    },
+    "GAN": {
+      "Noise": 1.0,
+      "Random": 1.0,
+      "Logic": 0.8,
+      "Distortion": 0.7,
+      "Comparator": 0.6,
+      "Function Generator": 0.5
+    },
+    "VAE": {
+      "Quantizer": 1.0,
+      "Random": 0.8,
+      "Sample & Hold": 0.8,
+      "Sequencer": 0.5,
+      "Slew Limiter": 0.5,
+      "Function Generator": 0.5
+    },
+    "Diffusion": {
+      "Noise": 1.0,
+      "Filter": 0.8,
+      "VCF": 0.8,
+      "LFO": 0.7,
+      "Granular": 0.7,
+      "Reverb": 0.5,
+      "Slew Limiter": 0.4
+    },
+    "MoE": {
+      "Polyphonic": 1.0,
+      "MIDI": 0.8,
+      "Sequencer": 0.7,
+      "Mixer": 0.7,
+      "Multiple": 0.5,
+      "VCO": 0.4
+    }
+  }
+}
