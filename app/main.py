@@ -5,7 +5,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import fetcher, matcher, parser
+from . import archetypes, fetcher, matcher, parser
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 
@@ -23,6 +23,7 @@ def classify(req: ClassifyRequest):
         raise HTTPException(400, "Not a ModularGrid rack URL")
     fmt, rack_id = parsed_url
 
+    archetypes.reload()
     rack = fetcher.get_rack(rack_id, fmt=fmt)
 
     function_names: list[str] = []

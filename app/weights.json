@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "note": "Provisional MVP weights, hand-picked. Keys are ModularGrid function-tag wording (case- and whitespace-insensitive at match time). A future fitting script can rewrite this file in-place using the same shape.",
+  "version": 2,
+  "note": "Hand-picked weights, calibrated against the '54 Most Popular Modules' rack diagnostic. Keys are ModularGrid function-tag wording (case- and whitespace-insensitive at match time). 'Sample and Hold' is intentional — MG uses 'and', not '&'. Format/attribute tags (Digital, Dual/Stereo, Quad, Utility, External, TrueGrid, Power) are deliberately excluded — they describe the chassis, not the behavior. A future fitting script can rewrite this file in-place.",
   "archetypes": ["MLP", "CNN", "RNN_LSTM", "Transformer", "GAN", "VAE", "Diffusion", "MoE"],
   "weights": {
     "MLP": {
@@ -11,7 +11,11 @@
       "VCA": 1.0,
       "Envelope Generator": 0.8,
       "Mixer": 0.5,
-      "LFO": 0.4
+      "LFO": 0.4,
+      "Synth Voice": 0.6,
+      "Low Pass Gate": 0.6,
+      "Equalizer": 0.5,
+      "PreAmp": 0.5
     },
     "CNN": {
       "Sequencer": 1.0,
@@ -20,15 +24,22 @@
       "Clock Generator": 0.7,
       "Drum": 0.6,
       "Quantizer": 0.4,
-      "Sample & Hold": 0.4
+      "Sample and Hold": 0.4,
+      "Frequency Divider": 0.6,
+      "Low Pass Gate": 0.4,
+      "Looper": 0.5
     },
     "RNN_LSTM": {
       "Delay": 1.0,
       "Reverb": 0.8,
       "Function Generator": 0.8,
-      "Sample & Hold": 0.7,
+      "Sample and Hold": 0.7,
       "Slew Limiter": 0.6,
-      "Envelope Follower": 0.5
+      "Envelope Follower": 0.5,
+      "Sampling": 0.7,
+      "Looper": 0.9,
+      "Effect": 0.4,
+      "Frequency Divider": 0.4
     },
     "Transformer": {
       "CV Modulation": 1.0,
@@ -37,7 +48,9 @@
       "Switch": 0.7,
       "Logic": 0.6,
       "MIDI": 0.4,
-      "Multiple": 0.4
+      "Multiple": 0.4,
+      "Controller": 0.6,
+      "Precision Adder": 0.6
     },
     "GAN": {
       "Noise": 1.0,
@@ -45,15 +58,18 @@
       "Logic": 0.8,
       "Distortion": 0.7,
       "Comparator": 0.6,
-      "Function Generator": 0.5
+      "Function Generator": 0.5,
+      "Waveshaper": 0.7,
+      "Ring Modulator": 0.9
     },
     "VAE": {
       "Quantizer": 1.0,
       "Random": 0.8,
-      "Sample & Hold": 0.8,
+      "Sample and Hold": 0.8,
       "Sequencer": 0.5,
       "Slew Limiter": 0.5,
-      "Function Generator": 0.5
+      "Function Generator": 0.5,
+      "Pitch Shifter": 0.4
     },
     "Diffusion": {
       "Noise": 1.0,
@@ -62,7 +78,12 @@
       "LFO": 0.7,
       "Granular": 0.7,
       "Reverb": 0.5,
-      "Slew Limiter": 0.4
+      "Slew Limiter": 0.4,
+      "Effect": 0.5,
+      "Sampling": 0.6,
+      "Waveshaper": 0.5,
+      "Low Pass Gate": 0.5,
+      "Ring Modulator": 0.4
     },
     "MoE": {
       "Polyphonic": 1.0,
@@ -70,7 +91,11 @@
       "Sequencer": 0.7,
       "Mixer": 0.7,
       "Multiple": 0.5,
-      "VCO": 0.4
+      "VCO": 0.4,
+      "Synth Voice": 0.7,
+      "Pitch Shifter": 0.5,
+      "Panning": 0.5,
+      "Sampling": 0.4
     }
   }
 }
