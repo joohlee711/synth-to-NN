@@ -24,6 +24,19 @@
       <div id="featured-card"></div>
       <h2>다른 유형들과의 호환도</h2>
       <ul id="scores" class="scores"></ul>
+
+      <h2>분류 진단 <span id="diag-summary" class="diag-summary"></span></h2>
+      <p class="diag-help">랙에 등장한 function 태그를 빈도순으로. 가중치(<code>app/weights.json</code>)에 키가 없으면 "누락" 컬럼에 — 캘리브레이션 시 빈도 높은 누락 항목부터 가중치를 채우면 효율적.</p>
+      <div class="diag-grid">
+        <div class="diag-col">
+          <h3 class="diag-title diag-title-matched">매칭됨 <span id="matched-count"></span></h3>
+          <ul id="matched-list" class="diag-list"></ul>
+        </div>
+        <div class="diag-col">
+          <h3 class="diag-title diag-title-unmatched">누락 <span id="unmatched-count"></span></h3>
+          <ul id="unmatched-list" class="diag-list"></ul>
+        </div>
+      </div>
     </section>
 
     <section id="all-types">

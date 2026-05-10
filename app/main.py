@@ -40,6 +40,7 @@ def classify(req: ClassifyRequest):
         "module_count": len(rack["modules"]),
         "function_count": len(function_names),
         "scores": result["scores"],
+        "function_counts": result["function_counts"],
         "matched_functions": result["matched_functions"],
         "unmatched_functions": result["unmatched_functions"],
     }

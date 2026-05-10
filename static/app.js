@@ -119,7 +119,45 @@ function renderResult(data) {
     );
   }
 
+  renderDiagnostic(data);
+
   section.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderDiagnostic(data) {
+  const counts = data.function_counts || {};
+  const matched = new Set(data.matched_functions || []);
+  const unmatched = new Set(data.unmatched_functions || []);
+
+  const totalTags = Object.values(counts).reduce((a, b) => a + b, 0);
+  const uniqueTags = Object.keys(counts).length;
+  document.getElementById("diag-summary").textContent =
+    `· ${uniqueTags}종 / 총 ${totalTags}회 등장`;
+  document.getElementById("matched-count").textContent = `(${matched.size}종)`;
+  document.getElementById("unmatched-count").textContent = `(${unmatched.size}종)`;
+
+  fillDiagList("matched-list", counts, matched);
+  fillDiagList("unmatched-list", counts, unmatched);
+}
+
+function fillDiagList(elemId, counts, nameSet) {
+  const ul = document.getElementById(elemId);
+  ul.innerHTML = "";
+  const rows = [...nameSet]
+    .map((name) => [name, counts[name] || 0])
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  if (!rows.length) {
+    ul.appendChild(el("li", { class: "diag-empty" }, ["없음"]));
+    return;
+  }
+  for (const [name, count] of rows) {
+    ul.appendChild(
+      el("li", {}, [
+        el("span", { class: "diag-name" }, [name]),
+        el("span", { class: "diag-count" }, [String(count)]),
+      ]),
+    );
+  }
 }
 
 document.getElementById("go").addEventListener("click", async () => {

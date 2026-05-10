@@ -23,12 +23,14 @@ def score_rack(function_names: list[str]) -> dict:
         matched_norm |= set(rack_vec) & set(a_vec)
 
     scores.sort(key=lambda x: x["score"], reverse=True)
+    function_counts = {rack_norm_to_orig[n]: c for n, c in rack_vec.items()}
     matched = sorted({rack_norm_to_orig[n] for n in matched_norm})
     unmatched = sorted(
         {rack_norm_to_orig[n] for n in rack_vec if n not in matched_norm}
     )
     return {
         "scores": scores,
+        "function_counts": function_counts,
         "matched_functions": matched,
         "unmatched_functions": unmatched,
     }
