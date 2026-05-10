@@ -25,6 +25,10 @@
       <h2>다른 유형들과의 호환도</h2>
       <ul id="scores" class="scores"></ul>
 
+      <div class="explore-cta" id="explore-cta">
+        <button id="explore-btn" type="button">다른 유형 구경하기 →</button>
+      </div>
+
       <h2>분류 진단 <span id="diag-summary" class="diag-summary"></span></h2>
       <p class="diag-help">랙에 등장한 function 태그를 빈도순으로. 가중치(<code>app/weights.json</code>)에 키가 없으면 "누락" 컬럼에 — 캘리브레이션 시 빈도 높은 누락 항목부터 가중치를 채우면 효율적.</p>
       <div class="diag-grid">
@@ -39,7 +43,7 @@
       </div>
     </section>
 
-    <section id="all-types">
+    <section id="all-types" hidden>
       <h2>전체 8개 유형</h2>
       <div id="cards-grid" class="cards-grid"></div>
     </section>

@@ -131,6 +131,22 @@ h2 { font-size: 1.2rem; margin: 48px 0 16px; letter-spacing: -0.005em; }
   border-radius: 2px; margin-left: 8px; vertical-align: middle;
 }
 
+.explore-cta {
+  text-align: center;
+  margin: 32px 0 16px;
+}
+.explore-cta button {
+  padding: 14px 28px;
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font: inherit; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.explore-cta button:hover { background: var(--accent); color: #fff; }
+
 .diag-summary { color: var(--muted); font-size: 0.85rem; font-weight: 400; margin-left: 8px; }
 .diag-help { color: var(--muted); font-size: 0.85rem; margin: 0 0 16px; }
 .diag-help code { background: #efeee8; padding: 1px 5px; border-radius: 3px; font-size: 0.85em; }
