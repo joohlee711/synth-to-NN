@@ -52,4 +52,9 @@ def root():
     return FileResponse(STATIC_DIR / "index.html")
 
 
+@app.get("/healthz")
+def healthz():
+    return {"ok": True}
+
+
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")

@@ -1,8 +1,11 @@
+import os
 import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
 
-DB_PATH = Path(__file__).resolve().parent.parent / "data" / "synth.db"
+_DEFAULT_DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+DATA_DIR = Path(os.environ.get("DATA_DIR", str(_DEFAULT_DATA_DIR)))
+DB_PATH = DATA_DIR / "synth.db"
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS racks (
