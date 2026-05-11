@@ -170,33 +170,72 @@ function fillDiagList(elemId, counts, nameSet) {
   }
 }
 
-document.getElementById("go").addEventListener("click", async () => {
-  const url = document.getElementById("url").value.trim();
+function classifyStream(url) {
+  const btn = document.getElementById("go");
   const status = document.getElementById("status");
+  const progress = document.getElementById("progress");
+  const fill = document.getElementById("progress-fill");
+  const label = document.getElementById("progress-label");
+
+  btn.disabled = true;
+  status.textContent = "";
+  progress.hidden = false;
+  fill.style.width = "0%";
+  label.textContent = "랙 정보 가져오는 중...";
+
+  const ev = new EventSource("/api/classify-stream?rack_url=" + encodeURIComponent(url));
+
+  const cleanup = () => {
+    progress.hidden = true;
+    btn.disabled = false;
+    ev.close();
+  };
+
+  ev.addEventListener("meta", (e) => {
+    const d = JSON.parse(e.data);
+    label.textContent = `모듈 ${d.total_modules}개 분석 시작...`;
+  });
+
+  ev.addEventListener("progress", (e) => {
+    const d = JSON.parse(e.data);
+    const pct = (d.i / d.total) * 100;
+    fill.style.width = pct + "%";
+    label.textContent = `${d.i} / ${d.total} — ${d.name}`;
+  });
+
+  ev.addEventListener("warn", (e) => {
+    // 한 모듈 fetch 실패는 분류 자체를 막진 않음; 라벨에 잠깐만 표시
+    const d = JSON.parse(e.data);
+    console.warn("module fetch failed:", d);
+  });
+
+  ev.addEventListener("fail", (e) => {
+    const d = JSON.parse(e.data);
+    status.textContent = "오류: " + d.detail;
+    cleanup();
+  });
+
+  ev.addEventListener("done", (e) => {
+    fill.style.width = "100%";
+    label.textContent = "완료";
+    renderResult(JSON.parse(e.data));
+    cleanup();
+  });
+
+  ev.onerror = () => {
+    if (ev.readyState === EventSource.CLOSED) return;
+    status.textContent = "연결 오류 — 잠시 후 다시 시도해주세요.";
+    cleanup();
+  };
+}
+
+document.getElementById("go").addEventListener("click", () => {
+  const url = document.getElementById("url").value.trim();
   if (!url) {
-    status.textContent = "URL을 입력해주세요.";
+    document.getElementById("status").textContent = "URL을 입력해주세요.";
     return;
   }
-  status.textContent = "분석 중...";
-  document.getElementById("go").disabled = true;
-  try {
-    const r = await fetch("/api/classify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ rack_url: url }),
-    });
-    if (!r.ok) {
-      const err = await r.json().catch(() => ({}));
-      throw new Error(err.detail || `HTTP ${r.status}`);
-    }
-    const data = await r.json();
-    status.textContent = "";
-    renderResult(data);
-  } catch (e) {
-    status.textContent = "오류: " + e.message;
-  } finally {
-    document.getElementById("go").disabled = false;
-  }
+  classifyStream(url);
 });
 
 loadArchetypes();

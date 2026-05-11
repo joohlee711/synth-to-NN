@@ -49,6 +49,20 @@ h2 { font-size: 1.2rem; margin: 48px 0 16px; letter-spacing: -0.005em; }
 
 .status { color: var(--muted); font-size: 0.9rem; margin-top: 12px; min-height: 1.4em; }
 
+.progress { margin-top: 16px; }
+.progress-bar {
+  height: 6px; background: #efeee8; border-radius: 3px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; width: 0%; background: var(--accent);
+  transition: width 0.25s ease-out;
+}
+.progress-label {
+  margin-top: 8px; font-size: 0.85rem; color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
 .result-banner {
   background: var(--card);
   border: 1px solid var(--line);
